@@ -1,0 +1,76 @@
+import socket
+from dotenv import load_dotenv
+import os
+import zipfile
+
+load_dotenv()
+
+PREFIX_PATH = os.environ.get("PREFIX_PATH")
+ClientSocket = socket.socket()
+host = '127.0.0.1'
+port = 1233
+
+
+try:
+    ClientSocket.connect((host, port))
+    print("Connected to server")
+except socket.error as e:
+    print(str(e))
+
+# Response = ClientSocket.recv(2048)
+# print(Response.decode('utf-8'))
+
+# while True:
+#     try:
+#         Input = input('Say Something: ')
+#         ClientSocket.send(str.encode(Input))
+#         if Input == "@Exit()":
+#             break
+#         Response = ClientSocket.recv(2048)
+#         print(Response.decode('utf-8'))
+#     except:
+#         ClientSocket.send(b"@Exit()")
+#         break
+    
+def SelectAll():
+    ClientSocket.send(b"@SelectAll")
+    
+    chunk = ClientSocket.recv(2048)
+    
+    members = chunk.decode().split(" ||| ")
+    for member in members:
+        print(member)
+        
+def Select(id):
+    PREFIX_PATH = os.environ.get("PREFIX_PATH")
+    
+    ClientSocket.send("@Select:{}".format(id).encode())
+    
+    # Receive text
+    chunk = ClientSocket.recv(2048)
+    member = chunk.decode()
+    id, name, phone, email, large_photo, small_photo, zip_photo = member.split("|")
+    
+    
+    # Receive Images
+    with open(zip_photo, 'wb') as f:
+        l = ClientSocket.recv(2048)
+    
+        while(l):
+            f.write(l)
+            if len(l) < 2048:
+                break
+            l = ClientSocket.recv(2048)
+            
+
+    with zipfile.ZipFile(zip_photo,  'r') as file:
+        
+        file.extractall()
+        
+    os.remove(zip_photo)
+    print("Selected {} successfully".format(id))
+    return [id, name, phone, email, large_photo, small_photo, zip_photo]
+
+
+ClientSocket.send(b'@Exit()')
+ClientSocket.close()

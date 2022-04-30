@@ -1,0 +1,2 @@
+send all information: id, name, phone, email
+send information of a particular person: id, name, phone, email, large_photo, small photo
