@@ -2,6 +2,8 @@ import socket
 from dotenv import load_dotenv
 import os
 import zipfile
+import shutil
+
 
 load_dotenv()
 
@@ -38,8 +40,8 @@ def SelectAll():
     chunk = ClientSocket.recv(2048)
     
     members = chunk.decode().split(" ||| ")
-    for member in members:
-        print(member)
+    
+    return members
         
 def Select(id):
     PREFIX_PATH = os.environ.get("PREFIX_PATH")
@@ -48,6 +50,10 @@ def Select(id):
     
     # Receive text
     chunk = ClientSocket.recv(2048)
+    
+    if chunk == b"Cannot find the member!":
+        print(chunk.decode())
+        return
     member = chunk.decode()
     id, name, phone, email, large_photo, small_photo, zip_photo = member.split("|")
     
@@ -69,8 +75,15 @@ def Select(id):
         
     os.remove(zip_photo)
     print("Selected {} successfully".format(id))
+    
     return [id, name, phone, email, large_photo, small_photo, zip_photo]
 
+def save_images(origin, destination):
+    shutil.copy(origin, destination)
+    
+    return True
+
+Select("12345678")
 
 ClientSocket.send(b'@Exit()')
 ClientSocket.close()

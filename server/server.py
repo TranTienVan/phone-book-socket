@@ -1,4 +1,3 @@
-from distutils.sysconfig import PREFIX
 import socket
 import os
 from _thread import *
@@ -77,6 +76,9 @@ def threaded_client(connection, address):
             cursor.close()
             conn.close()
             
+            if len(members) == 0:
+                connection.send(b"Cannot find the member!")
+                continue
             
             large_photo_path = members[0][4]
             small_photo_path = members[0][5]
