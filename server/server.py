@@ -1,11 +1,10 @@
 import socket
 import os
 from _thread import *
-import psycopg2
 from dotenv import load_dotenv
 import re
 import zipfile
-
+import sqlite3
 load_dotenv()
 
 ServerSocket = socket.socket()
@@ -22,12 +21,6 @@ ServerSocket.listen(5)
 # https://codezup.com/socket-server-with-multiple-clients-model-multithreading-python/
 
 def threaded_client(connection, address):
-    # Set up secret key
-    POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
-    POSTGRES_USERNAME = os.environ.get("POSTGRES_USERNAME")
-    POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-    POSTGRES_DATABASE_NAME = os.environ.get("POSTGRES_DATABASE_NAME")
-    PREFIX_PATH = os.environ.get("PREFIX_PATH")
     
     while True:
         try:
@@ -38,12 +31,7 @@ def threaded_client(connection, address):
             break
         
         if data == b"@SelectAll":
-            conn = psycopg2.connect(
-                host=POSTGRES_HOST,
-                database=POSTGRES_DATABASE_NAME,
-                user=POSTGRES_USERNAME,
-                password=POSTGRES_PASSWORD
-            )
+            conn = sqlite3.connect('phone-book.db')
             
             # Connect database
             cursor = conn.cursor()
@@ -60,18 +48,13 @@ def threaded_client(connection, address):
         # @Select:id
         
         if re.match("^@Select:\d\d\d\d\d\d\d\d$", data.decode()):
-            conn = psycopg2.connect(
-                host=POSTGRES_HOST,
-                database=POSTGRES_DATABASE_NAME,
-                user=POSTGRES_USERNAME,
-                password=POSTGRES_PASSWORD
-            )
+            conn = sqlite3.connect('phone-book.db')
             
             id = data.decode().split(":")[1]
             
             # Connect database
             cursor = conn.cursor()
-            cursor.execute("select * from member where id = %s", (id, ))
+            cursor.execute("select * from member where id = {}".format(id))
             members = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -103,10 +86,6 @@ def threaded_client(connection, address):
             
             os.remove(zip_name)
                 
-                    
-        
-        
-        
     connection.close()
     
     print('Client', address, 'disconnected')

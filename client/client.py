@@ -44,8 +44,6 @@ def SelectAll():
     return members
         
 def Select(id):
-    PREFIX_PATH = os.environ.get("PREFIX_PATH")
-    
     ClientSocket.send("@Select:{}".format(id).encode())
     
     # Receive text
@@ -83,7 +81,7 @@ def save_images(origin, destination):
     
     return True
 
-Select("12345678")
+# print(Select("20120623"))
 
 ClientSocket.send(b'@Exit()')
 ClientSocket.close()
