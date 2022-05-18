@@ -4,7 +4,6 @@ import os
 import zipfile
 import shutil
 
-
 load_dotenv()
 
 PREFIX_PATH = os.environ.get("PREFIX_PATH")
@@ -81,7 +80,7 @@ def save_images(origin, destination):
     
     return True
 
-# print(Select("20120623"))
+print(Select("20120623"))
 
 ClientSocket.send(b'@Exit()')
 ClientSocket.close()
