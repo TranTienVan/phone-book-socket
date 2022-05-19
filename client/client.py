@@ -99,7 +99,7 @@ def save_images(origin, destination):
     
     return True
 
-Select("JZBUWTDZ")
+Select("20120301")
 
 ClientSocket.send(b'@Exit()')
 ClientSocket.close()
