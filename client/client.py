@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import zipfile
 import shutil
-
+import time
 
 load_dotenv()
 
@@ -41,6 +41,24 @@ def SelectAll():
     
     members = chunk.decode().split(" ||| ")
     
+    time.sleep(2)
+    # Receive Images
+    with open("main.zip", 'wb') as f:
+        l = ClientSocket.recv(2048)
+    
+        while(l):
+            f.write(l)
+            if len(l) < 2048:
+                break
+            l = ClientSocket.recv(2048)
+            
+
+    with zipfile.ZipFile("main.zip",  'r') as file:
+        file.extractall()
+    
+    os.remove("main.zip")
+    print("Selected all successfully".format(id))
+        
     return members
         
 def Select(id):
@@ -81,8 +99,7 @@ def save_images(origin, destination):
     
     return True
 
-print(SelectAll())
-# print(Select("20120623"))
+Select("JZBUWTDZ")
 
 ClientSocket.send(b'@Exit()')
 ClientSocket.close()

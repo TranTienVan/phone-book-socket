@@ -1,0 +1,4 @@
+- create log.txt: save time and all query, connection log, update, v.v... (keep writing to consol)
+- create method to fill data (e.g. from csv): using pandas dataframe
+- connect to database at the beginning? database cannot connect?
+- selectAll should only send Small picture, 

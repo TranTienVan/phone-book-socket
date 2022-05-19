@@ -1,0 +1,4 @@
+- send query @selectAll => get all information small picture, id, name => display 
+- 
+
+- delete cache when close app
