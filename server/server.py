@@ -6,7 +6,8 @@ import re
 import zipfile
 import sqlite3
 load_dotenv()
-
+# client -> server (sdflasjkflad ) -> client
+# 
 ServerSocket = socket.socket()
 host = os.environ.get("HOST")
 port = int(os.environ.get("PORT"))

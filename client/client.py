@@ -81,6 +81,7 @@ def save_images(origin, destination):
     
     return True
 
+print(SelectAll())
 # print(Select("20120623"))
 
 ClientSocket.send(b'@Exit()')
