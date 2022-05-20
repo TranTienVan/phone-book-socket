@@ -1,6 +1,8 @@
+from shutil import ExecError
 import socket
 import os
 from _thread import *
+from unittest import expectedFailure
 from dotenv import load_dotenv
 import re
 import zipfile
@@ -25,23 +27,27 @@ ServerSocket.listen(5)
 
 def threaded_client(connection, address):
     def log(ip, message):
-        conn = sqlite3.connect('phone-book.db')
-        data = [str(uuid.uuid4()), ip, datetime.now().strftime("%Y-%m-%d %H:%M:%M"), message]
+        try:
+            conn = sqlite3.connect('phone-book.db')
+            data = [str(uuid.uuid4()), ip, datetime.now().strftime("%Y-%m-%d %H:%M:%M"), message]
         # Connect database
-        cursor = conn.cursor()
         
-        cursor.execute("""
-            INSERT INTO log
-            VALUES ('{}', '{}', '{}', '{}')
-        """.format(data[0], data[1], data[2], data[3]))
-        
-        conn.commit()
-        
-        print("-".join(data[1:]))
-        
-        cursor.close()
-        conn.close()
-        
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT INTO log
+                VALUES ('{}', '{}', '{}', '{}')
+            """.format(data[0], data[1], data[2], data[3]))
+            
+            conn.commit()
+            
+            print("-".join(data[1:]))
+            
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print(e)
+            print("Can not save log")
     while True:
         try:
             data = connection.recv(2048)
@@ -54,12 +60,17 @@ def threaded_client(connection, address):
             conn = sqlite3.connect('phone-book.db')
             
             # Connect database
-            cursor = conn.cursor()
-            cursor.execute("select id, name, phone, email, small_photo from member")
-            members = cursor.fetchall()
-            cursor.close()
-            conn.close()
-            
+            try:
+                cursor = conn.cursor()
+                cursor.execute("select id, name, phone, email, small_photo from member")
+                members = cursor.fetchall()
+                cursor.close()
+                conn.close()
+            except Exception as e:
+                print(e)
+                print("Something wrong with database")
+                log(address[0] + ":" + str(address[1]), "Database error")
+                continue
             # Send socket
             connection.sendall(" ||| ".join(["|".join(member) for member in members]).encode())
             
@@ -86,11 +97,17 @@ def threaded_client(connection, address):
             id = data.decode().split(":")[1]
             
             # Connect database
-            cursor = conn.cursor()
-            cursor.execute("select * from member where id = '{}'".format(id))
-            members = cursor.fetchall()
-            cursor.close()
-            conn.close()
+            try:
+                cursor = conn.cursor()
+                cursor.execute("select * from member where id = '{}'".format(id))
+                members = cursor.fetchall()
+                cursor.close()
+                conn.close()
+            except Exception as e:
+                print(e)
+                print("Something wrong with database")
+                log(address[0] + ":" + str(address[1]), "Database error")
+                continue
             
             if len(members) == 0:
                 connection.send(b"Cannot find the member!")
@@ -126,32 +143,39 @@ def threaded_client(connection, address):
     print('Client', address, 'disconnected')
 
 def log(ip, message):
-    conn = sqlite3.connect('phone-book.db')
-    data = [str(uuid.uuid4()), ip, datetime.now().strftime("%Y-%m-%d %H:%M:%M"), message]
-    # Connect database
-    cursor = conn.cursor()
-    
-    cursor.execute("""
-        INSERT INTO log
-        VALUES ('{}', '{}', '{}', '{}')
-    """.format(data[0], data[1], data[2], data[3]))
-    
-    conn.commit()
-    
-    print("-".join(data[1:]))
-    
-    cursor.close()
-    conn.close()
+    try:
+        conn = sqlite3.connect('phone-book.db')
+        data = [str(uuid.uuid4()), ip, datetime.now().strftime("%Y-%m-%d %H:%M:%M"), message]
+        # Connect database
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            INSERT INTO log
+            VALUES ('{}', '{}', '{}', '{}')
+        """.format(data[0], data[1], data[2], data[3]))
+        
+        conn.commit()
+        
+        print("-".join(data[1:]))
+        
+        cursor.close()
+        conn.close()
+    except Exception as e:
+        print(e)
+        print("Can not save log")
     
 while True:
-    Client, address = ServerSocket.accept()
-    
-    # print('Connected to: ' + address[0] + ':' + str(address[1]))
-    
-    log(address[0] + ":" + str(address[1]), "User connected")
-    start_new_thread(threaded_client, (Client, address))
-    
-    # print('Client', address, 'connected')
-    log(address[0] + ":" + str(address[1]), "User disconnected")
-    
+    try:
+        Client, address = ServerSocket.accept()
+        
+        # print('Connected to: ' + address[0] + ':' + str(address[1]))
+        
+        log(address[0] + ":" + str(address[1]), "User connected")
+        start_new_thread(threaded_client, (Client, address))
+        
+        # print('Client', address, 'connected')
+        log(address[0] + ":" + str(address[1]), "User disconnected")
+    except Exception as e:
+        print(e)
+        print("Something wrong with server")
 ServerSocket.close()
