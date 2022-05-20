@@ -47,10 +47,11 @@ class ClientSocket:
 
 	def Select(self, id):
 		try:
-			ClientSocket.send("@Select:{}".format(id).encode())
+			self.socket.send("@Select:{}".format(id).encode())
+
 			
 			# Receive text
-			chunk = ClientSocket.recv(2048)
+			chunk = self.socket.recv(2048)
 			
 			if chunk == b"Cannot find the member!":
 				return False, "Cannot find the member!",  None
@@ -60,13 +61,13 @@ class ClientSocket:
 			
 			# Receive Images
 			with open(zip_photo, 'wb') as f:
-				l = ClientSocket.recv(2048)
+				l = self.socket.recv(2048)
 			
 				while(l):
 					f.write(l)
 					if len(l) < 2048:
 						break
-					l = ClientSocket.recv(2048)
+					l = self.socket.recv(2048)
 					
 			with zipfile.ZipFile(zip_photo,  'r') as file:
 				file.extractall()
@@ -74,7 +75,7 @@ class ClientSocket:
 			os.remove(zip_photo)
 			
 			return True, "Selected member {} successfully!".format(id), [id, name, phone, email, large_photo, small_photo, zip_photo]
-		except:
+		except Exception:
 			return False, "Failed to select member!", None
 
 	def close(self):

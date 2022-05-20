@@ -219,14 +219,14 @@ class Ui_MainWindow(object):
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 662, 359))
-        self.scrollAreaWidgetContents.setStyleSheet(u"@QVBoxLayout {\n"
+        self.scrollWidget = QWidget()
+        self.scrollWidget.setObjectName(u"scrollWidget")
+        self.scrollWidget.setGeometry(QRect(0, 0, 662, 359))
+        self.scrollWidget.setStyleSheet(u"@QVBoxLayout {\n"
 "border: none;\n"
 "\n"
 "}")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.scrollArea.setWidget(self.scrollWidget)
         self.pages.addWidget(self.search_page)
         self.info_page = QWidget()
         self.info_page.setObjectName(u"info_page")
@@ -313,6 +313,21 @@ class Ui_MainWindow(object):
 "}")
         self.mail_out.setReadOnly(True)
         self.mail_out.setClearButtonEnabled(False)
+        self.label_8 = QLabel(self.info_page)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(280, 250, 80, 20))
+        self.label_8.setFont(font)
+        self.label_8.setStyleSheet(u"color: rgb(240, 162, 21);")
+        self.picture_path_out = QLineEdit(self.info_page)
+        self.picture_path_out.setObjectName(u"picture_path_out")
+        self.picture_path_out.setGeometry(QRect(370, 250, 300, 20))
+        self.picture_path_out.setFont(font1)
+        self.picture_path_out.setStyleSheet(u"QLineEdit {\n"
+"border: none;\n"
+"\n"
+"}")
+        self.picture_path_out.setReadOnly(True)
+        self.picture_path_out.setClearButtonEnabled(False)
         self.pages.addWidget(self.info_page)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -366,5 +381,8 @@ class Ui_MainWindow(object):
         self.phone_out.setPlaceholderText("")
         self.mail_out.setText("")
         self.mail_out.setPlaceholderText("")
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Avatar", None))
+        self.picture_path_out.setText("")
+        self.picture_path_out.setPlaceholderText("")
     # retranslateUi
 

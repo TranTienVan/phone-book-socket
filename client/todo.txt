@@ -1,4 +1,0 @@
-- send query @selectAll => get all information small picture, id, name => display 
-- send all information: id, name, phone, email
-- send information of a particular person: id, name, phone, email, large_photo, small photo
-- delete cache when close app
