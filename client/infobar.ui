@@ -63,7 +63,7 @@ background-color: rgba(0, 0, 0, 0);
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="small_picture_out">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -81,7 +81,7 @@ background-color: rgba(0, 0, 0, 0);
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="plug_2">
+  <widget class="QPushButton" name="forward_btn">
    <property name="geometry">
     <rect>
      <x>500</x>
