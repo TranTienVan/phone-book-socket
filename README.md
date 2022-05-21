@@ -1,6 +1,6 @@
 # Socket Python programming
 
-Phone Book client-server application using: 
+**Phobo** - Phone Book client-server application using: 
 
 - [Socket](https://docs.python.org/3/library/socket.html) is a Python library that supports connecting two nodes on a network to communicate with each other. One socket listens on a particular port on an IP address while the other socket reaches out to the other to form a connection. The server forms the listener socket while the client reaches out to the server.
 
@@ -53,6 +53,27 @@ Client
 
 ![alt text](./assets/FormHome.png)
 
+## Distributing
+In order to create an executable file (e.g. '.exe', ELF file,...), we can use PyInstaller, which can be installed via `pip`:
+```
+(venv) $ pip install pyinstaller
+```
+
+We need to 'client' folder where 'main.py' is exist. Then run:
+```
+(venv) $ pyinstaller -n Phobo -F -w -i Resources/phobo.ico main.py
+```
+where:
+- `-n Phobo` means naming application Phobo;
+- `-F` means creating a one-file bundled executable;
+- `-w` means not providing a console window for standard i/o;
+- `-i Resources/phobo.ico` means applying the icon to a Windows executable ('Resources/phobo.ico' is needed).
+
+If you've already installed Makefiles, then just simply run:
+```
+(venv) $ make
+```
+We need folder 'Resource' and file 'cookies.json' be in the same place of 'Phobo.exe', which was released in 'dist/'.
 # Author
 [Trần Tiến Văn](https://github.com/TranTienVan)
 
