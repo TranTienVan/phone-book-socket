@@ -2,9 +2,10 @@
 
 Phone Book client-server application using Python [Socket][https://docs.python.org/3/library/socket.html], [SQLite][https://www.sqlite.org/docs.html] and [QT5][https://doc.qt.io/qt-5.15/]
 
-![alt text](Images/design.gif)
+![alt text](./assets//design.gif)
 ## Prerequisite
 ** Install Python 3.9
+
 ** Install Pip
 
 ## Getting Started
@@ -38,10 +39,11 @@ Server
 ```
 
 Client
+```
 (venv) $ python source/client/main.py
+```
 
-
-![alt text](Images/FormHome.png)
+![alt text](./assets//FormHome.png)
 
 # Author
 [Trần Tiến Văn][https://github.com/TranTienVan]
