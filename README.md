@@ -1,6 +1,6 @@
 # Socket Python programming
-
-**Phobo** - Phone Book client-server application using: 
+## Introduction
+**Phobo** is a Phone Book client-server application using: 
 
 - [Socket](https://docs.python.org/3/library/socket.html) is a Python library that supports connecting two nodes on a network to communicate with each other. One socket listens on a particular port on an IP address while the other socket reaches out to the other to form a connection. The server forms the listener socket while the client reaches out to the server.
 
@@ -74,7 +74,7 @@ If you've already installed Makefiles, then just simply run:
 (venv) $ make
 ```
 We need folder 'Resource' and file 'cookies.json' be in the same place of 'Phobo.exe', which was released in 'dist/'.
-# Author
+## Author
 [Trần Tiến Văn](https://github.com/TranTienVan)
 
 [Nguyễn Hoàng Khang](https://github.com/khangnh-22)
