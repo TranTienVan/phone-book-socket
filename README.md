@@ -54,7 +54,7 @@ Client
 ![alt text](./assets/FormHome.png)
 
 ## Distributing
-In order to create an executable file (e.g. '.exe', ELF file,...), we can use PyInstaller, which can be installed via `pip`:
+In order to create an executable Client GUI (e.g. '.exe' file, ELF file,...), we can use PyInstaller, which can be installed via `pip`:
 ```
 (venv) $ pip install pyinstaller
 ```
