@@ -99,7 +99,7 @@ def save_images(origin, destination):
     
     return True
 
-mems = SelectAll()
+mems = Select('MGBAGUCO')
 print(mems)
 
 ClientSocket.send(b'@Exit()')

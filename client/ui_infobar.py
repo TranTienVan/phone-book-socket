@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(554, 50)
+        Form.resize(680, 50)
         Form.setMinimumSize(QSize(0, 50))
         Form.setMaximumSize(QSize(16777215, 50))
         Form.setStyleSheet(u"@QWidget {\n"
@@ -30,7 +30,7 @@ class Ui_Form(object):
 "}")
         self.ID_name_out = QLineEdit(Form)
         self.ID_name_out.setObjectName(u"ID_name_out")
-        self.ID_name_out.setGeometry(QRect(70, 15, 400, 20))
+        self.ID_name_out.setGeometry(QRect(120, 15, 400, 20))
         font = QFont()
         font.setPointSize(12)
         self.ID_name_out.setFont(font)
@@ -42,11 +42,11 @@ class Ui_Form(object):
         self.ID_name_out.setClearButtonEnabled(False)
         self.small_picture_out = QLabel(Form)
         self.small_picture_out.setObjectName(u"small_picture_out")
-        self.small_picture_out.setGeometry(QRect(20, 5, 40, 40))
+        self.small_picture_out.setGeometry(QRect(70, 5, 40, 40))
         self.small_picture_out.setFont(font)
         self.forward_btn = QPushButton(Form)
         self.forward_btn.setObjectName(u"forward_btn")
-        self.forward_btn.setGeometry(QRect(500, 5, 40, 40))
+        self.forward_btn.setGeometry(QRect(550, 5, 40, 40))
         self.forward_btn.setMinimumSize(QSize(40, 40))
         self.forward_btn.setMaximumSize(QSize(40, 40))
         self.forward_btn.setCursor(QCursor(Qt.PointingHandCursor))
