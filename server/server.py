@@ -140,7 +140,7 @@ def threaded_client(connection, address):
                 
     connection.close()
     
-    print('Client', address, 'disconnected')
+    log(address[0] + ":" + str(address[1]), "User disconnected")
 
 def log(ip, message):
     try:
@@ -174,7 +174,7 @@ while True:
         start_new_thread(threaded_client, (Client, address))
         
         # print('Client', address, 'connected')
-        log(address[0] + ":" + str(address[1]), "User disconnected")
+        
     except Exception as e:
         print(e)
         print("Something wrong with server")
