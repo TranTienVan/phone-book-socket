@@ -8,7 +8,7 @@ from PySide6 import QtCore
 import ClientSocket as cs
 import utilities as util
 import InfoBar as ib
-
+import shutil
 from ui_mainwindow import Ui_MainWindow
 
 COOKIE_PATH = "cookies.json"
@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
 			self.name_out.setText(member[1])
 			self.phone_out.setText(member[2])
 			self.mail_out.setText(member[3])
-			self.picture_path_out.setText(os.getcwd() + member[4])
+			self.picture_path_out.setText(member[4])
 			
 			pixmap = QPixmap(member[4][1:]).scaled(self.big_picture_out.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
 			self.big_picture_out.setPixmap(pixmap)
@@ -194,10 +194,24 @@ class MainWindow(QMainWindow):
 			self.pages.setCurrentWidget(self.search_page)
 
 ###########################################################
-
+def clear_cache():
+    if os.path.isdir("Images"):
+        shutil.rmtree("Images")  # remove dir and all contains
+    
+    if os.path.isdir("__pycache__"):
+        shutil.rmtree("__pycache__")  # remove dir and all contains
+        
+def run(app):
+    app.exec()
+    
+    # Clear cache after closing app
+    clear_cache()
+    
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	window = MainWindow()
 	window.show()
-
-	sys.exit(app.exec())
+    
+	sys.exit(run(app))
+ 
+    

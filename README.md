@@ -6,4 +6,4 @@
 
 # Run client
     cd client
-    python client.py
+    python main.py
