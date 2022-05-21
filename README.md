@@ -1,6 +1,12 @@
 # Socket Python programming
 
-Phone Book client-server application using Python [Socket][https://docs.python.org/3/library/socket.html], [SQLite][https://www.sqlite.org/docs.html] and [QT5][https://doc.qt.io/qt-5.15/]
+Phone Book client-server application using: 
+
+** [Socket][https://docs.python.org/3/library/socket.html]
+
+** [SQLite][https://www.sqlite.org/docs.html] 
+
+** [QT5][https://doc.qt.io/qt-5.15/]
 
 ![alt text](./assets//design.gif)
 ## Prerequisite
@@ -43,7 +49,7 @@ Client
 (venv) $ python source/client/main.py
 ```
 
-![alt text](./assets//FormHome.png)
+![alt text](./assets/FormHome.png)
 
 # Author
 [Trần Tiến Văn][https://github.com/TranTienVan]
