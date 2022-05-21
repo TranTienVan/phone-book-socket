@@ -2,11 +2,11 @@
 
 Phone Book client-server application using: 
 
-** [Socket][https://docs.python.org/3/library/socket.html]
+** [Socket](https://docs.python.org/3/library/socket.html)
 
-** [SQLite][https://www.sqlite.org/docs.html] 
+** [SQLite](https://www.sqlite.org/docs.html])
 
-** [QT5][https://doc.qt.io/qt-5.15/]
+** [QT5](https://doc.qt.io/qt-5.15/)
 
 ![alt text](./assets//design.gif)
 ## Prerequisite
@@ -52,6 +52,9 @@ Client
 ![alt text](./assets/FormHome.png)
 
 # Author
-[Trần Tiến Văn][https://github.com/TranTienVan]
-[Nguyễn Hoàng Khang][https://github.com/khangnh-22]
-[Dương Lê Đình Thuận][https://github.com/ThuanDuongHCMUS]
+[Trần Tiến Văn](https://github.com/TranTienVan)
+
+[Nguyễn Hoàng Khang](https://github.com/khangnh-22)
+
+[Dương Lê Đình Thuận](https://github.com/ThuanDuongHCMUS)
+
